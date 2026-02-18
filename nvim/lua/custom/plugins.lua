@@ -380,20 +380,11 @@ require('lazy').setup {
     },
   },
 
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
   {
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = true }, -- Disable italics in comments
-        },
-      }
-      vim.cmd.colorscheme 'tokyonight-night'
-    end,
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
   },
 
   { -- Collection of various small independent plugins/modules
@@ -516,29 +507,74 @@ require('lazy').setup {
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     branch = 'main',
-    opts = {
-      textobjects = {
-        select = {
-          enable = true,
-          lockhead = true,
-          include_surrounding_whitespace = true,
-          keymaps = {
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next = {
-            [']d'] = '@conditional.outer',
-          },
-          goto_previous = {
-            ['[d'] = '@conditional.outer',
-          },
-        },
+    init = function()
+      vim.g.no_plugin_maps = true
+    end,
+    keys = {
+      -- Selection mappings
+      {
+        'af',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+        desc = 'Select around function',
+      },
+      {
+        'if',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+        desc = 'Select inside function',
+      },
+
+      {
+        'ac',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@class.outer', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+        desc = 'Select around class',
+      },
+      {
+        'ic',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+        desc = 'Select inside class',
+      },
+      -- Navigation mappings (Move)
+      {
+        ']d',
+        function()
+          require('nvim-treesitter-textobjects.move').goto_next_start('@conditional.outer', 'textobjects')
+        end,
+        mode = { 'n', 'x', 'o' },
+        desc = 'Next conditional start',
+      },
+      {
+        '[d',
+        function()
+          require('nvim-treesitter-textobjects.move').goto_previous_start('@conditional.outer', 'textobjects')
+        end,
+        mode = { 'n', 'x', 'o' },
+        desc = 'Previous conditional start',
       },
     },
+    config = function()
+      require('nvim-treesitter-textobjects').setup {
+        select = {
+          lookahead = true,
+          selection_modes = {
+            ['@parameter.outer'] = 'v', -- charwise
+            ['@function.outer'] = 'V', -- linewise
+          },
+          include_surrounding_whitespace = true,
+        },
+      }
+    end,
   },
 
   require 'kickstart.plugins.neo-tree',

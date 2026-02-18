@@ -1,7 +1,7 @@
 # Colors (Aura Theme)
 # Default colors
 [colors.primary]
-background = "#15141b"
+background = "#060606"
 foreground = "#edecee"
 
 # Normal colors
