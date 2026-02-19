@@ -1,3 +1,8 @@
+vim.g.background = 'dark'
+vim.cmd.colorscheme 'lunaperche'
+vim.api.nvim_set_hl(0, 'EndOfBuffer', { fg = 'bg', bg = 'bg' })
+vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#444444', bg = 'none' })
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true

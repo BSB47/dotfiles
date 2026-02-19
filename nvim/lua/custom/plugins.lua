@@ -51,6 +51,9 @@ require('lazy').setup {
         { '<leader>r', group = 'I[R]on Repl', mode = { 'n', 'v' } },
       },
     },
+    config = function()
+      vim.api.nvim_set_hl(0, 'WhichKeyNormal', { fg = 'fg', bg = 'bg' })
+    end,
   },
 
   {
