@@ -414,6 +414,12 @@ require('lazy').setup {
       end
 
       require('mini.tabline').setup()
+      vim.api.nvim_set_hl(0, 'MiniTablineCurrent', { fg = 'bg', bg = 'fg' })
+      vim.api.nvim_set_hl(0, 'MiniTablineModifiedCurrent', { fg = '#FF0000', bg = 'fg' })
+      vim.api.nvim_set_hl(0, 'MiniTablineVisible', { fg = 'fg', bg = 'bg' })
+      vim.api.nvim_set_hl(0, 'MiniTablineModifiedVisible', { fg = '#FF0000', bg = 'bg' })
+      vim.api.nvim_set_hl(0, 'MiniTablineHidden', { fg = 'fg', bg = 'bg' })
+      vim.api.nvim_set_hl(0, 'MiniTablineModifiedHidden', { fg = '#FF0000', bg = 'bg' })
 
       require('mini.indentscope').setup()
     end,
