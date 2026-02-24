@@ -41,7 +41,7 @@ family = "CodeNewRoman Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "CodeNewRoamn Nerd Font"
+family = "CodeNewRoman Nerd Font"
 style = "Italic"
 
 [font.normal]
