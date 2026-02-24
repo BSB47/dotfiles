@@ -2,6 +2,7 @@ vim.g.background = 'dark'
 vim.cmd.colorscheme 'lunaperche'
 vim.api.nvim_set_hl(0, 'EndOfBuffer', { fg = 'bg', bg = 'bg' })
 vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#444444', bg = 'none' })
+vim.api.nvim_set_hl(0, 'Normal', { fg = 'fg', bg = '#060606' })
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
