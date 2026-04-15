@@ -1,5 +1,5 @@
 -- https://www.reddit.com/r/neovim/comments/1qfidjn/lazydev_now_working/ (THIS IS BULLSHIT)
-require('custom.plugins.lsp.lua_ls')
+require 'custom.plugins.lsp.lua_ls'
 
 -- Install lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -79,6 +79,28 @@ require('lazy').setup {
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
+      -- don't render non-text files or this crashes ur shit
+      local previewers = require 'telescope.previewers'
+      local Job = require 'plenary.job'
+      local new_maker = function(filepath, bufnr, opts)
+        filepath = vim.fn.expand(filepath)
+        Job:new({
+          command = 'file',
+          args = { '--mime-type', '-b', filepath },
+          on_exit = function(j)
+            local mime_type = vim.split(j:result()[1], '/')[1]
+            if mime_type == 'text' then
+              previewers.buffer_previewer_maker(filepath, bufnr, opts)
+            else
+              -- maybe we want to write something to the buffer here
+              vim.schedule(function()
+                vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'NOT TEXT' })
+              end)
+            end
+          end,
+        }):sync()
+
+      end
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
@@ -86,6 +108,7 @@ require('lazy').setup {
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
+          buffer_previewer_maker = new_maker,
           path_display = { 'truncate' },
           mappings = {
             i = { ['<C-h>'] = 'which_key' },
@@ -330,7 +353,7 @@ require('lazy').setup {
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
-        local disable_filetypes = { c = true, cpp = true, py = true, lua = true }
+        local disable_filetypes = { c = true, cpp = true, python = true, lua = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -542,7 +565,7 @@ require('lazy').setup {
           lookahead = true,
           selection_modes = {
             ['@parameter.outer'] = 'v', -- charwise
-            ['@function.outer'] = 'V',  -- linewise
+            ['@function.outer'] = 'V', -- linewise
           },
           include_surrounding_whitespace = true,
         },

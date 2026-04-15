@@ -1,0 +1,17 @@
+[global]
+follow = none
+geometry = "300x500-0+20"
+shrink = false
+notification_height = 20
+padding = 8
+horizontal_padding = 8
+separator_color = auto
+sort = yes
+format = "<b>%s</b>\n%b"
+word_wrap = yes
+icon_position = left
+max_icon_size = 60
+
+[urgency_low]
+background = "#36454F"
+foreground = "#ffffff"

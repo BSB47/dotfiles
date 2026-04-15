@@ -24,6 +24,13 @@ fzf_vim() {
 }
 bind -x '"\C-o": fzf_vim'
 
+copy_command_to_clip(){
+  local cmd
+  cmd=$(history | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//' | fzf --height=40% --tac) || return
+  echo -n "$cmd" | xsel -b
+}
+bind -x '"\C-n": copy_command_to_clip'
+
 #evnrioment variables
 export PATH=/home/yaofu/qdx/mlcv/libqdx/target/debug:$PATH
 export COPILOT_SECRET=''

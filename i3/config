@@ -18,7 +18,7 @@ default_border normal
 # is used in the bar {} block below.
 font pango:Terminus 0
 
-exec --no-startup-id xrandr --output DP-0 --auto --left-of DP-2
+exec --no-startup-id xrandr --output DP-4 --auto --left-of DP-6
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -41,6 +41,9 @@ exec --no-startup-id nm-applet
 # keyboard repeat and delay
 exec --no-startup-id xset r rate 200 35
 
+# spotify
+exec_always --no-startup-id sh -c 'playerctl --follow metadata --format "{{title}} - {{artist}}" | while read -r line; do echo "$line" > ~/spotify.log; notify-send "Now Playing" "$line"; done'
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSr1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
@@ -60,7 +63,7 @@ exec --no-startup-id feh --bg-scale /home/yaofu/Downloads/doom.jpg
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 # Transparency
-exec_always --no-startup-id picom --experimental-backends --transparent-clipping -b
+exec_always --no-startup-id picom -b
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -209,6 +212,9 @@ bindsym $mod+r mode "resize"
 
 for_window [class="^.*"] border pixel 0
 client.focused #FF0000 #FF0000 #fdf6e3 #859900
+
+for_window [title="Graphical Representations"] floating enable
+for_window [title="VMD Main"] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
