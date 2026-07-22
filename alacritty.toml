@@ -44,11 +44,12 @@ family = "TX-02"
 style = "Bold"
 
 [font.italic]
-family = "TX-02 Medium Oblique"
-style = "Regular"
+family = "TX-02"
+style = "Medium Oblique"
 
 [font.normal]
-family = "TX-02 Medium"
+family = "TX-02"
+style = "Medium"
 
 [[keyboard.bindings]]
 chars = "\u001B[27;5;9~"
