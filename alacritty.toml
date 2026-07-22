@@ -1,5 +1,8 @@
 # Colors (Aura Theme)
 # Default colors
+[colors]
+draw_bold_text_with_bright_colors = true
+
 [colors.primary]
 background = "#060606"
 foreground = "#edecee"
@@ -37,15 +40,15 @@ cursor = "#FFFFFF"
 size = 9
 
 [font.bold]
-family = "CodeNewRoman Nerd Font"
+family = "TX-02"
 style = "Bold"
 
 [font.italic]
-family = "CodeNewRoman Nerd Font"
-style = "Italic"
+family = "TX-02 Medium Oblique"
+style = "Regular"
 
 [font.normal]
-family = "CodeNewRoman Nerd Font"
+family = "TX-02 Medium"
 
 [[keyboard.bindings]]
 chars = "\u001B[27;5;9~"
