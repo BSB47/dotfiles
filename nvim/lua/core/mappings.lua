@@ -18,9 +18,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '[q', ':cprev<CR>', { desc = 'Previous quickfix item' })
 vim.keymap.set('n', ']q', ':cnext<CR>', { desc = 'Next quickfix item' })
 
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<C-[>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- TERMINAL MODE
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier

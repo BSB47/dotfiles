@@ -1,4 +1,5 @@
 require 'core.options'
 require 'core.mappings'
 require 'core.autocmds'
-require 'custom.plugins'
+require 'custom.lazy'
+require 'custom.builtin'

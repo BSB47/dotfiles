@@ -61,7 +61,7 @@ require('lazy').setup {
 
   {
     'nvim-telescope/telescope.nvim',
-    event = 'VimEnter',
+    lazy = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
 
@@ -99,7 +99,6 @@ require('lazy').setup {
             end
           end,
         }):sync()
-
       end
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
@@ -138,6 +137,7 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]ind by [G]rep' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
       vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind existing [b]uffers' })
+      vim.keymap.set('n', '<leader>fr', builtin.registers, { desc = '[F]ind [R]egisters' })
     end,
   },
 
@@ -419,7 +419,12 @@ require('lazy').setup {
     end,
   },
 
-  'github/copilot.vim',
+  {
+    'github/copilot.vim',
+    init = function()
+      vim.g.copilot_no_tab_map = true
+    end,
+  },
 
   {
     'akinsho/toggleterm.nvim',
@@ -578,6 +583,17 @@ require('lazy').setup {
     opts = {
       legacy_computing_symbols_support = true,
       time_interval = 7,
+    },
+  },
+
+  {
+    'JoseConseco/nvim-footprints',
+    branch = 'feature/number-line-highlights',
+    opts = {
+      footprintsColor = '#00c0f0',
+      footprintsOnCurrentLine = 0,
+      footprintsEasingFunction = 'linear',
+      footprintsHistoryDepth = 10,
     },
   },
 

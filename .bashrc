@@ -26,8 +26,8 @@ bind -x '"\C-o": fzf_vim'
 
 copy_command_to_clip(){
   local cmd
-  cmd=$(history | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//' | fzf --height=40% --tac) || return
-  echo -n "$cmd" | xsel -b
+  cmd=$(history | fzf --height=40% --tac --no-sort) || return
+  echo -n "$cmd" | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//' | xsel -b
 }
 bind -x '"\C-n": copy_command_to_clip'
 
@@ -46,3 +46,5 @@ export DISPLAY=:1
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export OPENCODE_DISABLE_LSP_DOWNLOAD=true
+export OPENCODE_EXPERIMENTAL=true
