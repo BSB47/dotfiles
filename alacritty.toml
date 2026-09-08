@@ -36,6 +36,12 @@ background = "#29263c"
 [colors.cursor]
 cursor = "#FFFFFF"
 
+[cursor]
+blink_interval = 400
+
+[cursor.style]
+blinking = "Always"
+
 [font]
 size = 9
 
